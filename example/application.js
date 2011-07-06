@@ -16,10 +16,17 @@ $(function () {
     'use strict';
 
     // Initialize the jQuery File Upload widget:
-    $('#fileupload').fileupload();
 
+	$("#fileupload").fileupload({
+		url								: "upload.php",
+		uploadTemplate					: $("#template-upload"),
+		downloadTemplate				: $("#template-download"),
+		confirmDeleteFileMessage		: 'Delete this file ?',
+		confirmDeleteAllFilesMessage	: 'Delete all files ?'
+	});
+	
     // Load existing files:
-    $.getJSON($('#fileupload form').prop('action'), function (files) {
+    $.getJSON("upload.php", function (files) {
         var fu = $('#fileupload').data('fileupload');
         fu._adjustMaxNumberOfFiles(-files.length);
         fu._renderDownload(files)
